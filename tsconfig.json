@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.build.json",
+
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@leancloud/adapter-types": ["packages/adapter-types"],
+      "@leancloud/*": ["packages/*/src"]
+    }
+  }
+}

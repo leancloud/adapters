@@ -1,0 +1,16 @@
+{
+  "name": "@leancloud/adapter-types",
+  "version": "1.0.0",
+  "description": "Type definitions for runtime adaptors",
+  "author": "Lee Yeh <lee55962698@gmail.com>",
+  "license": "MIT",
+  "main": "",
+  "types": "types.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "tsc types.d.ts"
+  },
+  "devDependencies": {}
+}
