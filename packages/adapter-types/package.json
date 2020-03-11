@@ -1,7 +1,7 @@
 {
   "name": "@leancloud/adapter-types",
   "version": "1.0.0",
-  "description": "Type definitions for runtime adaptors",
+  "description": "Type definitions for adaptors",
   "author": "Lee Yeh <lee55962698@gmail.com>",
   "license": "MIT",
   "main": "",

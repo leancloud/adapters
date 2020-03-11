@@ -9,8 +9,16 @@ export interface UploadOptions {
   onprogress?: (event: ProgressEvent) => void;
 }
 interface RequestOptions {
-  method?: string;
-  data?: object | string;
+  method?:
+    | "OPTIONS"
+    | "GET"
+    | "HEAD"
+    | "POST"
+    | "PUT"
+    | "DELETE"
+    | "TRACE"
+    | "CONNECT";
+  data?: object;
   headers?: object;
   onprogress?: (event: ProgressEvent) => void;
 }

@@ -53,6 +53,3 @@ export const upload: Adapters["upload"] = (url, file, options = {}) => {
       data: body
     }));
 };
-
-export const storage: Adapters['storage'] = window.localStorage;
-export const WebSocket: Adapters['WebSocket'] = window.WebSocket;

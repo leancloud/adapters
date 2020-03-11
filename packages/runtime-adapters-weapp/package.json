@@ -1,0 +1,35 @@
+{
+  "name": "@leancloud/runtime-adapters-weapp",
+  "version": "1.0.0",
+  "description": "Runtime adapters for Wechat Miniapp",
+  "keywords": [
+    "runtime-adapters"
+  ],
+  "author": "Lee Yeh <lee55962698@gmail.com>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist",
+    "compile": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "event-target-shim": "^5.0.1"
+  },
+  "devDependencies": {
+    "@leancloud/adapter-types": "^1.0.0",
+    "miniprogram-api-typings": "^2.10.2"
+  }
+}
