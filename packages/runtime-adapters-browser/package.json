@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/runtime-adapters-browser",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Runtime adapters for browser",
   "keywords": [
     "runtime-adapters"
