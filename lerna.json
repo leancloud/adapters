@@ -2,5 +2,14 @@
   "packages": [
     "packages/*"
   ],
+  "command": {
+    "create": {
+      "license": "MIT"
+    },
+    "version": {
+      "allowBranch": "master",
+      "message": "chore(release): publish"
+    }
+  },
   "version": "independent"
 }
