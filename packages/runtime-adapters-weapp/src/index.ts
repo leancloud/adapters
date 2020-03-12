@@ -57,9 +57,10 @@ class WS extends EventTarget(EVENTS) {
 
     const socketTask = wx.connectSocket({
       url,
-      protocols: Array.isArray(this._protocol)
-        ? this._protocol
-        : [this._protocol],
+      protocols:
+        this._protocol && Array.isArray(this._protocol)
+          ? this._protocol
+          : [this._protocol],
       fail: error => setTimeout(() => errorHandler(error), 0)
     });
     this._socketTask = socketTask;
