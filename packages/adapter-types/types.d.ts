@@ -4,11 +4,11 @@ export interface ProgressEvent {
   total?: number;
 }
 export interface UploadOptions {
-  headers?: object;
-  data?: { [fieldName: string]: string };
+  headers?: Record<string, string>;
+  data?: Record<string, string>;
   onprogress?: (event: ProgressEvent) => void;
 }
-interface RequestOptions {
+interface RequestOptions extends UploadOptions {
   method?:
     | "OPTIONS"
     | "GET"
@@ -18,9 +18,6 @@ interface RequestOptions {
     | "DELETE"
     | "TRACE"
     | "CONNECT";
-  data?: object;
-  headers?: object;
-  onprogress?: (event: ProgressEvent) => void;
 }
 interface Response {
   status?: number;

@@ -3,6 +3,12 @@
     "packages/*"
   ],
   "command": {
+    "bootstrap": {
+      "hoist": true,
+      "nohoist": [
+        "@types/quickapp"
+      ]
+    },
     "create": {
       "license": "MIT"
     },
