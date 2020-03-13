@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/adapter-types",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Type definitions for adaptors",
   "author": "Lee Yeh <lee55962698@gmail.com>",
   "license": "MIT",

@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/runtime-adapters-react-native",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Runtime adapters for React Native",
   "keywords": [
     "runtime-adapters"
@@ -26,11 +26,11 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@leancloud/runtime-adapters-browser": "^1.0.0",
+    "@leancloud/runtime-adapters-browser": "^1.0.1",
     "@react-native-community/async-storage": "^2.0.0-rc.2",
     "@react-native-community/async-storage-backend-legacy": "^2.0.0-rc.2"
   },
   "devDependencies": {
-    "@leancloud/adapter-types": "^1.0.0"
+    "@leancloud/adapter-types": "^1.0.1"
   }
 }

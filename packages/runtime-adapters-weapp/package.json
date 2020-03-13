@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/runtime-adapters-weapp",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Runtime adapters for Wechat Miniapp",
   "keywords": [
     "runtime-adapters"
@@ -30,6 +30,6 @@
     "miniprogram-api-typings": "^2.10.2"
   },
   "devDependencies": {
-    "@leancloud/adapter-types": "^1.0.0"
+    "@leancloud/adapter-types": "^1.0.1"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/runtime-adapters-quickapp",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Runtime adapters for quick app",
   "keywords": [
     "runtime-adapters"
@@ -29,7 +29,7 @@
     "event-target-shim": "^5.0.1"
   },
   "devDependencies": {
-    "@leancloud/adapter-types": "^1.0.0",
+    "@leancloud/adapter-types": "^1.0.1",
     "@types/quickapp": "leeyeh/quickapp-types#f193c07"
   }
 }
