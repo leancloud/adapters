@@ -43,7 +43,7 @@ export declare type SyncStorage = {
 };
 export declare type AsyncStorage = {
   async: true;
-  getItem: (key: string) => Promise<string>;
+  getItem: (key: string) => Promise<string | null>;
   setItem: (key: string, value: string) => Promise<any>;
   removeItem: (key: string) => Promise<any>;
   clear: () => Promise<any>;
