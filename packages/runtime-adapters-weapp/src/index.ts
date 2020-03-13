@@ -28,7 +28,7 @@ class WS extends EventTarget(EVENTS) {
   static CLOSED = 3;
 
   private _url: string;
-  private _protocol: string | string[];
+  private _protocol?: string | string[];
   private _readyState: number;
   private _socketTask: WechatMiniprogram.SocketTask;
 
@@ -44,7 +44,7 @@ class WS extends EventTarget(EVENTS) {
     }
     super();
     this._url = url;
-    this._protocol = protocol || ""; // default value according to specs
+    this._protocol = protocol;
     this._readyState = WS.CONNECTING;
 
     const errorHandler = (event: WechatMiniprogram.GeneralCallbackResult) => {
@@ -54,11 +54,10 @@ class WS extends EventTarget(EVENTS) {
         message: event.errMsg
       });
     };
-
     const socketTask = wx.connectSocket({
       url,
       protocols:
-        this._protocol && Array.isArray(this._protocol)
+        this._protocol === undefined || Array.isArray(this._protocol)
           ? this._protocol
           : [this._protocol],
       fail: error => setTimeout(() => errorHandler(error), 0)
