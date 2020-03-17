@@ -1,9 +1,9 @@
 {
-  "name": "@leancloud/runtime-adapters-browser",
-  "version": "1.0.1",
-  "description": "Runtime adapters for browser",
+  "name": "@leancloud/platform-adapters-quickapp",
+  "version": "0.1.0",
+  "description": "Platform adapters for quick app",
   "keywords": [
-    "runtime-adapters"
+    "platform-adapters"
   ],
   "author": "Lee Yeh <lee55962698@gmail.com>",
   "homepage": "",
@@ -11,8 +11,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "directories": {
-    "lib": "lib",
-    "test": "__tests__"
+    "lib": "lib"
   },
   "files": [
     "lib"
@@ -27,9 +26,10 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@leancloud/adapters-superagent": "^1.0.1"
+    "event-target-shim": "^5.0.1"
   },
   "devDependencies": {
-    "@leancloud/adapter-types": "^1.0.1"
+    "@leancloud/adapter-types": "^1.0.1",
+    "@types/quickapp": "leeyeh/quickapp-types#f193c07"
   }
 }

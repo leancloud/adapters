@@ -1,9 +1,9 @@
 {
-  "name": "@leancloud/runtime-adapters-weapp",
+  "name": "@leancloud/platform-adapters-weapp",
   "version": "1.0.2",
-  "description": "Runtime adapters for Wechat Miniapp",
+  "description": "Platform adapters for Wechat Miniapp",
   "keywords": [
-    "runtime-adapters"
+    "platform-adapters"
   ],
   "author": "Lee Yeh <lee55962698@gmail.com>",
   "homepage": "",

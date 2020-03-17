@@ -1,9 +1,9 @@
 {
-  "name": "@leancloud/runtime-adapters-quickapp",
+  "name": "@leancloud/platform-adapters-react-native",
   "version": "0.1.0",
-  "description": "Runtime adapters for quick app",
+  "description": "Platform adapters for React Native",
   "keywords": [
-    "runtime-adapters"
+    "platform-adapters"
   ],
   "author": "Lee Yeh <lee55962698@gmail.com>",
   "homepage": "",
@@ -26,10 +26,11 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "event-target-shim": "^5.0.1"
+    "@leancloud/platform-adapters-browser": "^1.0.1",
+    "@react-native-community/async-storage": "^2.0.0-rc.2",
+    "@react-native-community/async-storage-backend-legacy": "^2.0.0-rc.2"
   },
   "devDependencies": {
-    "@leancloud/adapter-types": "^1.0.1",
-    "@types/quickapp": "leeyeh/quickapp-types#f193c07"
+    "@leancloud/adapter-types": "^1.0.1"
   }
 }

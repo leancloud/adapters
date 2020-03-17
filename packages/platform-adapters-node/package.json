@@ -1,9 +1,9 @@
 {
-  "name": "@leancloud/runtime-adapters-node",
+  "name": "@leancloud/platform-adapters-node",
   "version": "1.0.1",
-  "description": "Runtime adapters for Node.js",
+  "description": "Platform adapters for Node.js",
   "keywords": [
-    "runtime-adapters"
+    "platform-adapters"
   ],
   "author": "Lee Yeh <lee55962698@gmail.com>",
   "homepage": "https://github.com/leancloud/adapters#readme",

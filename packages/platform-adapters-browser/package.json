@@ -1,9 +1,9 @@
 {
-  "name": "@leancloud/runtime-adapters-react-native",
-  "version": "0.1.0",
-  "description": "Runtime adapters for React Native",
+  "name": "@leancloud/platform-adapters-browser",
+  "version": "1.0.1",
+  "description": "Platform adapters for browser",
   "keywords": [
-    "runtime-adapters"
+    "platform-adapters"
   ],
   "author": "Lee Yeh <lee55962698@gmail.com>",
   "homepage": "",
@@ -11,7 +11,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "directories": {
-    "lib": "lib"
+    "lib": "lib",
+    "test": "__tests__"
   },
   "files": [
     "lib"
@@ -26,9 +27,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@leancloud/runtime-adapters-browser": "^1.0.1",
-    "@react-native-community/async-storage": "^2.0.0-rc.2",
-    "@react-native-community/async-storage-backend-legacy": "^2.0.0-rc.2"
+    "@leancloud/adapters-superagent": "^1.0.1"
   },
   "devDependencies": {
     "@leancloud/adapter-types": "^1.0.1"

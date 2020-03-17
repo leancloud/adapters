@@ -1,5 +1,5 @@
 import { Adapters } from "@leancloud/adapter-types";
-export * from "@leancloud/runtime-adapters-browser";
+export * from "@leancloud/platform-adapters-browser";
 
 import LegacyStorage from "@react-native-community/async-storage-backend-legacy";
 import AsyncStorageFactory, {
