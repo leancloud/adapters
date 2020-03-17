@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/platform-adapters-react-native",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Platform adapters for React Native",
   "keywords": [
     "platform-adapters"

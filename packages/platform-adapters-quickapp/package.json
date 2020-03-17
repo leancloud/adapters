@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/platform-adapters-quickapp",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Platform adapters for quick app",
   "keywords": [
     "platform-adapters"
