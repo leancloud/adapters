@@ -30,13 +30,11 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "@leancloud/adapter-types": "^1.0.1",
+    "@types/ws": "^7.2.2",
     "@leancloud/adapters-superagent": "^1.0.1",
     "localstorage-memory": "^1.0.2",
     "ws": "^5.2.2"
-  },
-  "devDependencies": {
-    "@leancloud/adapter-types": "^1.0.1",
-    "@types/ws": "^7.2.2"
   },
   "bugs": {
     "url": "https://github.com/leancloud/adapters/issues"

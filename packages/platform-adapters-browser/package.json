@@ -31,9 +31,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "@leancloud/adapter-types": "^1.0.1",
     "@leancloud/adapters-superagent": "^1.0.1"
-  },
-  "devDependencies": {
-    "@leancloud/adapter-types": "^1.0.1"
   }
 }

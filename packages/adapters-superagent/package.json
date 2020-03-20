@@ -27,11 +27,9 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "superagent": "^5.2.2"
-  },
-  "devDependencies": {
     "@leancloud/adapter-types": "^1.0.1",
-    "@types/superagent": "^4.1.7"
+    "@types/superagent": "^4.1.7",
+    "superagent": "^5.2.2"
   },
   "bugs": {
     "url": "https://github.com/leancloud/adapters/issues"

@@ -30,11 +30,9 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "@leancloud/adapter-types": "^1.0.1",
     "@leancloud/platform-adapters-browser": "^1.0.1",
     "@react-native-community/async-storage": "^2.0.0-rc.2",
     "@react-native-community/async-storage-backend-legacy": "^2.0.0-rc.2"
-  },
-  "devDependencies": {
-    "@leancloud/adapter-types": "^1.0.1"
   }
 }
