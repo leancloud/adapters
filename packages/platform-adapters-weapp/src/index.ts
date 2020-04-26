@@ -1,6 +1,8 @@
 import { Adapters, RequestOptions } from "@leancloud/adapter-types";
 import "miniprogram-api-typings";
 
+export * from "./auth";
+
 export const storage: Adapters["storage"] = {
   getItem(key) {
     return wx.getStorageSync(key);
