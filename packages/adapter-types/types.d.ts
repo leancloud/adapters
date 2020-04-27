@@ -77,5 +77,5 @@ export interface Adapters {
   WebSocket: {
     new (url: string, protocols?: string | string[]): WebSocket;
   };
-  getAuthData?: () => Promise<[Platform, AuthData]>;
+  getAuthData: () => Promise<[Platform, AuthData]>;
 }
