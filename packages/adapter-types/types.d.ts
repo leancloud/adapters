@@ -62,10 +62,14 @@ interface WebSocket {
   close(): any;
 }
 
-type Platform = string;
-type AuthData = {
+interface AuthData {
   [key: string]: any;
-};
+}
+interface AuthInfo {
+  authData: AuthData;
+  provider: string;
+  platform?: string;
+}
 export interface Adapters {
   request: (url: string, options?: RequestOptions) => Promise<Response>;
   upload: (
@@ -77,5 +81,5 @@ export interface Adapters {
   WebSocket: {
     new (url: string, protocols?: string | string[]): WebSocket;
   };
-  getAuthData: () => Promise<[Platform, AuthData]>;
+  getAuthInfo: (...args: any[]) => Promise<AuthInfo>;
 }
