@@ -62,10 +62,10 @@ interface WebSocket {
   close(): any;
 }
 
-interface AuthData {
+export interface AuthData {
   [key: string]: any;
 }
-interface AuthInfo {
+export interface AuthInfo {
   authData: AuthData;
   provider: string;
   platform?: string;
