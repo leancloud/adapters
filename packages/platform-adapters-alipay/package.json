@@ -1,0 +1,38 @@
+{
+  "name": "@leancloud/platform-adapters-alipay",
+  "version": "1.0.0",
+  "description": "Platform adapters for Alipay Miniapp",
+  "keywords": [
+    "platform-adapters"
+  ],
+  "author": "Lee Yeh <lee55962698@gmail.com>",
+  "homepage": "https://github.com/leancloud/adapters#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leancloud/adapters.git"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./lib",
+    "compile": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@leancloud/adapter-types": "^2.0.0",
+    "base64-arraybuffer": "^0.2.0",
+    "event-target-shim": "^5.0.1"
+  },
+  "devDependencies": {}
+}
