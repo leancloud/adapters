@@ -33,11 +33,5 @@
   "dependencies": {
     "@leancloud/adapter-types": "^2.0.0",
     "event-target-shim": "^5.0.1"
-  },
-  "devDependencies": {
-    "@rollup/plugin-node-resolve": "^7.1.3",
-    "@rollup/plugin-typescript": "^4.1.1",
-    "rollup": "^2.10.5",
-    "tslib": "^2.0.0"
   }
 }
