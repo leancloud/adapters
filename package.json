@@ -8,7 +8,11 @@
     "pub": "lerna publish"
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^7.1.3",
+    "@rollup/plugin-typescript": "^4.1.1",
     "lerna": "^3.20.2",
+    "rollup": "^2.10.5",
+    "tslib": "^2.0.0",
     "typescript": "^3.8.3"
   }
 }
