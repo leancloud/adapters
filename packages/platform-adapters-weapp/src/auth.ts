@@ -1,5 +1,4 @@
 import { AuthData } from "@leancloud/adapter-types";
-import "miniprogram-api-typings";
 
 const PROVIDER = "lc_weapp";
 const PLATFORM = "weixin";
