@@ -3,7 +3,7 @@ export * from "@leancloud/platform-adapters-browser";
 
 import LegacyStorage from "@react-native-community/async-storage-backend-legacy";
 import AsyncStorageFactory, {
-  AsyncStorage
+  AsyncStorage,
 } from "@react-native-community/async-storage";
 
 type StorageModel = { [key in symbol | number | string]: string };
@@ -20,7 +20,11 @@ const createStorage = (
   getItem: asyncStorage.get.bind(asyncStorage),
   setItem: asyncStorage.set.bind(asyncStorage),
   removeItem: asyncStorage.remove.bind(asyncStorage),
-  clear: asyncStorage.clearStorage.bind(asyncStorage)
+  clear: asyncStorage.clearStorage.bind(asyncStorage),
 });
 
 export const storage = createStorage(defaultLegacyStorage);
+
+export const platformInfo: Adapters["platformInfo"] = {
+  name: "ReactNative",
+};
