@@ -1,3 +1,10 @@
+export interface PlatformInfo {
+  name: string;
+  version?: string;
+  extra?: string;
+  userAgent?: string;
+}
+
 export interface ProgressEvent {
   loaded: number;
   percent?: number;
@@ -71,6 +78,7 @@ export interface AuthInfo {
   platform?: string;
 }
 export interface Adapters {
+  platformInfo: PlatformInfo;
   request: (url: string, options?: RequestOptions) => Promise<Response>;
   upload: (
     url: string,

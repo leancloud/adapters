@@ -13,6 +13,10 @@ import {
   WebSocket as QAWebSocket
 } from "@system.websocketfactory";
 
+export const platformInfo: Adapters["platformInfo"] = {
+  name: "QuickApp",
+};
+
 type Response = {
   data: Parameters<Required<Parameters<typeof fetch>[0]>["success"]>[0];
 };
