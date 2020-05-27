@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/platform-adapters-baidu",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Platform adapters for baidu mini-app",
   "keywords": [
     "platform-adapters"
