@@ -1,4 +1,4 @@
-import { Adapters } from '@leancloud/adapter-types';
+import { Adapters } from "@leancloud/adapter-types";
 
 export const storage: Adapters["storage"] = {
   getItem(key) {
