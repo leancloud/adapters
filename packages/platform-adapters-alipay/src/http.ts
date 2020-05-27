@@ -36,7 +36,7 @@ export const upload: Adapters["upload"] = function (
       filePath: file.data.uri,
       fileName: file.field,
       formData: data,
-      fileType: 'image',
+      fileType: "image",
       success: (res: any) => {
         res.ok = !(res.statusCode >= 400);
         resolve(res);
