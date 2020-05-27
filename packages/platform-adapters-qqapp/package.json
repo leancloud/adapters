@@ -1,0 +1,36 @@
+{
+  "name": "@leancloud/platform-adapters-qqapp",
+  "version": "1.0.0",
+  "description": "Platform adapters for QQ Miniapp",
+  "keywords": [
+    "platform-adapters"
+  ],
+  "author": "Lee Yeh <lee55962698@gmail.com>",
+  "homepage": "https://github.com/leancloud/adapters#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leancloud/adapters.git"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./lib",
+    "compile": "rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@leancloud/adapter-types": "^2.0.0",
+    "@leancloud/platform-adapters-weapp": "^1.1.0"
+  }
+}
