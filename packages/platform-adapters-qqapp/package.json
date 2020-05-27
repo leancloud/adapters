@@ -30,6 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "@leancloud/adapter-types": "^2.0.0",
     "@leancloud/platform-adapters-weapp": "^1.1.0"
   }
 }
