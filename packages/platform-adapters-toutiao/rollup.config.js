@@ -10,8 +10,7 @@ export default {
   },
   plugins: [
     typescript({
-      tsconfig: false,
-      target: 'es5',
+      tsconfig: 'tsconfig.build.json',
     }),
     resolve(),
   ],
