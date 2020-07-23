@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/adapters-superagent",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Adaptors for superagent",
   "author": "Lee Yeh <lee55962698@gmail.com>",
   "homepage": "https://github.com/leancloud/adapters#readme",
@@ -27,7 +27,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@leancloud/adapter-types": "^3.0.0",
+    "@leancloud/adapter-types": "^4.0.0",
     "@leancloud/adapter-utils": "^1.0.0",
     "@types/superagent": "^4.1.7",
     "superagent": "^5.2.2"

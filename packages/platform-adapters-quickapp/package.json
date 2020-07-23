@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/platform-adapters-quickapp",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Platform adapters for quick app",
   "keywords": [
     "platform-adapters"
@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@leancloud/adapter-types": "^3.0.0",
+    "@leancloud/adapter-types": "^4.0.0",
     "@types/quickapp": "leeyeh/quickapp-types#f193c07",
     "event-target-shim": "^5.0.1"
   }

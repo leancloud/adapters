@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/adapter-types",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Type definitions for adaptors",
   "author": "Lee Yeh <lee55962698@gmail.com>",
   "homepage": "https://github.com/leancloud/adapters#readme",
