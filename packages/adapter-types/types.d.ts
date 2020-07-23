@@ -19,15 +19,17 @@ export interface ProgressEvent {
   percent?: number;
   total?: number;
 }
+export interface AbortSignal {
+  readonly aborted: boolean;
+  onabort: () => any;
+  addEventListener: (type: string, listener: () => any) => any;
+}
 export interface RequestOptions {
   method?: HTTPMethod;
   headers?: Record<string, string>;
   data?: Record<string, string>;
   onprogress?: (event: ProgressEvent) => void;
-  signal?: {
-    onabort: () => any;
-    addEventListener: (type: string, listener: () => any) => any;
-  };
+  signal?: AbortSignal;
 }
 export interface Response {
   status?: number;

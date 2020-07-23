@@ -1,7 +1,12 @@
-import { Adapters, RequestOptions } from "@leancloud/adapter-types";
+import { Adapters } from "@leancloud/adapter-types";
 
 export const request: Adapters["request"] = function (url, options = {}) {
   const { method, data, headers, signal } = options;
+
+  if (signal?.aborted) {
+    return Promise.reject(new Error("Request aborted"));
+  }
+
   return new Promise((resolve, reject) => {
     const task = swan.request({
       url,
@@ -29,11 +34,16 @@ export const request: Adapters["request"] = function (url, options = {}) {
 
 export const upload: Adapters["upload"] = function (url, file, options = {}) {
   const { headers, data, onprogress, signal } = options;
+
+  if (signal?.aborted) {
+    return Promise.reject(new Error("Request aborted"));
+  }
   if (!(file && file.data && file.data.uri)) {
     return Promise.reject(
       new TypeError("File data must be an object like { uri: localPath }.")
     );
   }
+
   return new Promise((resolve, reject) => {
     const task = swan.uploadFile({
       url,
