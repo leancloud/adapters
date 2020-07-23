@@ -1,7 +1,6 @@
 import {
   Adapters,
   RequestOptions,
-  UploadOptions
 } from "@leancloud/adapter-types";
 import { EventTarget } from "event-target-shim";
 
@@ -44,7 +43,7 @@ export const request: Adapters["request"] = (
 const uploadFile: Adapters["upload"] = (
   url,
   file,
-  { headers, data, onprogress }: UploadOptions = {}
+  { headers, data, onprogress }: RequestOptions = {}
 ) => {
   if (!(file && file.data && file.data.uri)) {
     return Promise.reject(
