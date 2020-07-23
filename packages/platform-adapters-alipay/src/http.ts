@@ -1,34 +1,45 @@
-import { Adapters, RequestOptions } from "@leancloud/adapter-types";
+import { Adapters } from "@leancloud/adapter-types";
 
-export const request: Adapters["request"] = function (
-  url,
-  { method, data, headers }: RequestOptions = {}
-) {
+export const request: Adapters["request"] = function (url, options = {}) {
+  const { method, data, headers, signal } = options;
+
+  if (signal?.aborted) {
+    return Promise.reject(new Error("Request aborted"));
+  }
+
   return new Promise((resolve, reject) => {
-    my.request({
+    const task = my.request({
       method,
       url,
       headers,
       data,
-      success: (res: any) => {
+      complete: (res: any) => {
+        if (!res.status) {
+          reject(new Error(res.errorMessage));
+          return;
+        }
         res.ok = !(res.status >= 400);
         resolve(res);
       },
-      fail: reject,
     });
+    if (signal) {
+      signal.addEventListener("abort", task.abort);
+    }
   });
-}
+};
 
-export const upload: Adapters["upload"] = function (
-  url,
-  file,
-  { headers, data, onprogress }: RequestOptions = {}
-) {
+export const upload: Adapters["upload"] = function (url, file, options = {}) {
+  const { headers, data, onprogress, signal } = options;
+
+  if (signal?.aborted) {
+    return Promise.reject(new Error("Request aborted"));
+  }
   if (!(file && file.data && file.data.uri)) {
     return Promise.reject(
       new TypeError("File data must be an object like { uri: localPath }.")
     );
   }
+
   return new Promise((resolve, reject) => {
     const task = my.uploadFile({
       url,
@@ -38,22 +49,24 @@ export const upload: Adapters["upload"] = function (
       formData: data,
       fileType: "image",
       success: (res: any) => {
-        res.ok = !(res.statusCode >= 400);
-        resolve(res);
+        resolve({
+          ok: !(res.statusCode >= 400),
+          status: res.statusCode,
+          headers: res.header,
+          data: res.data,
+        });
       },
       fail: reject,
     });
-    const progressHandler = ({
-      progress,
-      totalBytesWritten,
-      totalBytesExpectedToWrite,
-    }: any) => {
-      onprogress?.({
-        percent: progress,
-        loaded: totalBytesWritten,
-        total: totalBytesExpectedToWrite,
-      });
+    if (signal) {
+      signal.addEventListener("abort", task.abort);
     }
-    task?.onProgressUpdate?.(progressHandler);
+    if (onprogress) {
+      task.onProgressUpdate((event: any) => onprogress({
+        loaded: event.totalBytesWritten,
+        total: event.totalBytesExpectedToWrite,
+        percent: event.progress,
+      }));
+    }
   });
-}
+};

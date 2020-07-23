@@ -1,18 +1,13 @@
 {
-  "name": "@leancloud/platform-adapters-browser",
-  "version": "1.1.0",
-  "description": "Platform adapters for browser",
-  "keywords": [
-    "platform-adapters"
-  ],
+  "name": "@leancloud/adapter-utils",
+  "version": "1.0.0",
+  "description": "A set of utility functions commonly used by adapters",
   "author": "Lee Yeh <lee55962698@gmail.com>",
   "homepage": "https://github.com/leancloud/adapters#readme",
   "license": "MIT",
   "main": "lib/index.js",
-  "types": "lib/index.d.ts",
   "directories": {
-    "lib": "lib",
-    "test": "__tests__"
+    "lib": "lib"
   },
   "files": [
     "lib"
@@ -29,9 +24,5 @@
     "clean": "rm -rf ./lib",
     "compile": "tsc -p tsconfig.build.json",
     "prepublishOnly": "npm run build"
-  },
-  "dependencies": {
-    "@leancloud/adapter-types": "^3.0.0",
-    "@leancloud/adapters-superagent": "^1.0.4"
   }
 }

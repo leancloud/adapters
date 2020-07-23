@@ -22,12 +22,13 @@
   },
   "scripts": {
     "build": "npm run clean && npm run compile",
-    "clean": "rm -rf ./dist",
+    "clean": "rm -rf ./lib",
     "compile": "tsc -p tsconfig.build.json",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@leancloud/adapter-types": "^3.0.0",
+    "@leancloud/adapter-utils": "^1.0.0",
     "@types/superagent": "^4.1.7",
     "superagent": "^5.2.2"
   },
