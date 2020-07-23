@@ -15,7 +15,7 @@ export const request: Adapters["request"] = function (url, options = {}) {
   const { method = "GET", data, headers, onprogress, signal } = options;
 
   if (signal?.aborted) {
-    return Promise.reject(new AbortError("Signal is already aborted"));
+    return Promise.reject(new AbortError("Request aborted"));
   }
 
   const req = superagent(method, url);
@@ -51,7 +51,7 @@ export const upload: Adapters["upload"] = (url, file, options = {}) => {
   const { method = "POST", data, headers, onprogress, signal } = options;
 
   if (signal?.aborted) {
-    return Promise.reject(new AbortError("Signal is already aborted"));
+    return Promise.reject(new AbortError("Request aborted"));
   }
 
   const req = superagent(method, url).attach(file.field, file.data, file.name);
