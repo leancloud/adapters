@@ -1,14 +1,17 @@
 import { Adapters } from "@leancloud/adapter-types";
 import * as superagent from "superagent";
 
-export const request: Adapters["request"] = (url, options = {}) => {
-  const { method = "GET", data, headers, onprogress } = options;
+export const request: Adapters["request"] = function (url, options = {}) {
+  const { method = "GET", data, headers, onprogress, signal } = options;
   const req = superagent(method, url);
   if (headers) {
     req.set(headers);
   }
   if (onprogress) {
     req.on("progress", onprogress);
+  }
+  if (signal) {
+    signal.addEventListener("abort", req.abort);
   }
 
   return req
@@ -23,13 +26,13 @@ export const request: Adapters["request"] = (url, options = {}) => {
       status,
       ok,
       headers: header,
-      data: body
+      data: body,
     }));
 };
 
 export const upload: Adapters["upload"] = (url, file, options = {}) => {
-  const { data, headers, onprogress } = options;
-  const req = superagent("POST", url).attach(file.field, file.data, file.name);
+  const { method = "POST", data, headers, onprogress, signal } = options;
+  const req = superagent(method, url).attach(file.field, file.data, file.name);
   if (data) {
     req.field(data);
   }
@@ -38,6 +41,9 @@ export const upload: Adapters["upload"] = (url, file, options = {}) => {
   }
   if (onprogress) {
     req.on("progress", onprogress);
+  }
+  if (signal) {
+    signal.addEventListener("abort", req.abort);
   }
   return req
     .catch(error => {
@@ -50,6 +56,6 @@ export const upload: Adapters["upload"] = (url, file, options = {}) => {
       status,
       ok,
       headers: header,
-      data: body
+      data: body,
     }));
 };

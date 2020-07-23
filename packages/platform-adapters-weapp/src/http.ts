@@ -1,36 +1,34 @@
 import { Adapters, RequestOptions } from "@leancloud/adapter-types";
 
-export const request: Adapters["request"] = (
-  url,
-  { method, data, headers }: RequestOptions = {}
-) =>
-  new Promise((resolve, reject) =>
-    wx.request({
+export const request: Adapters["request"] = function (url, options = {}) {
+  const { method, data, headers, signal } = options;
+  return new Promise((resolve, reject) => {
+    const task = wx.request({
       url,
       method,
       data,
       header: headers,
-      responseType: "text",
-      success: response => {
-        const { statusCode: status, data, ...rest } = response;
+      complete: (res: any) => {
+        if (!res.statusCode) {
+          reject(new Error(res.errMsg));
+          return;
+        }
         resolve({
-          ...rest,
-          data: typeof data === "string" ? JSON.parse(data) : data,
-          status,
-          ok: !(status >= 400)
+          ok: !(res.statusCode >= 400),
+          status: res.statusCode,
+          headers: res.header,
+          data: res.data,
         });
       },
-      fail: response => {
-        reject(new Error(response.errMsg));
-      }
-    })
-  );
+    });
+    if (signal) {
+      signal.addEventListener("abort", task.abort);
+    }
+  });
+};
 
-export const upload: Adapters["upload"] = (
-  url,
-  file,
-  { headers, data, onprogress }: RequestOptions = {}
-) => {
+export const upload: Adapters["upload"] = function (url, file, options = {}) {
+  const { headers, data, onprogress, signal } = options;
   if (!(file && file.data && file.data.uri)) {
     return Promise.reject(
       new TypeError("File data must be an object like { uri: localPath }.")
@@ -49,20 +47,22 @@ export const upload: Adapters["upload"] = (
           ...rest,
           data: typeof data === "string" ? JSON.parse(data) : data,
           status,
-          ok: !(status >= 400)
+          ok: !(status >= 400),
         });
       },
       fail: response => {
         reject(new Error(response.errMsg));
-      }
+      },
     });
-    task?.onProgressUpdate?.(
-      ({ progress, totalBytesSent, totalBytesExpectedToSend }) =>
-        onprogress?.({
-          percent: progress,
-          loaded: totalBytesSent,
-          total: totalBytesExpectedToSend
-        })
-    );
+    if (signal) {
+      signal.addEventListener("abort", task.abort);
+    }
+    if (onprogress) {
+      task.onProgressUpdate(event => onprogress({
+        loaded: event.totalBytesSent,
+        total: event.totalBytesExpectedToSend,
+        percent: event.progress,
+      }))
+    }
   });
 };

@@ -1,30 +1,34 @@
 import { Adapters, RequestOptions } from "@leancloud/adapter-types";
 
-export const request: Adapters["request"] = function (
-  url,
-  { method, data, headers }: RequestOptions = {}
-) {
+export const request: Adapters["request"] = function (url, options = {}) {
+  const { method, data, headers, signal } = options;
   return new Promise((resolve, reject) => {
-    swan.request({
+    const task = swan.request({
       url,
       method,
       header: headers,
       data,
-      success: (res: any) => {
-        res.status = res.statusCode;
-        res.ok = !(res.status >= 400);
-        resolve(res);
+      complete: (res: any) => {
+        if (!res.statusCode) {
+          reject(new Error(res.errMsg));
+          return;
+        }
+        resolve({
+          ok: !(res.statusCode >= 400),
+          status: res.statusCode,
+          headers: res.header,
+          data: res.data,
+        });
       },
-      fail: (res: any) => reject(new Error(res.errMsg)),
     });
+    if (signal) {
+      signal.addEventListener("abort", task.abort);
+    }
   });
-}
+};
 
-export const upload: Adapters["upload"] = function (
-  url,
-  file,
-  { headers, data, onprogress }: RequestOptions = {}
-) {
+export const upload: Adapters["upload"] = function (url, file, options = {}) {
+  const { headers, data, onprogress, signal } = options;
   if (!(file && file.data && file.data.uri)) {
     return Promise.reject(
       new TypeError("File data must be an object like { uri: localPath }.")
@@ -44,17 +48,15 @@ export const upload: Adapters["upload"] = function (
       },
       fail: (res: any) => reject(new Error(res.errMsg)),
     });
-    const progressHandler = ({
-      progress,
-      totalBytesSent,
-      totalBytesExpectedToSend,
-    }: any) => {
-      onprogress?.({
-        percent: progress,
-        loaded: totalBytesSent,
-        total: totalBytesExpectedToSend,
-      });
+    if (signal) {
+      signal.addEventListener("abort", task.abort);
     }
-    task?.onProgressUpdate?.(progressHandler);
+    if (onprogress) {
+      task.onProgressUpdate((event: any) => onprogress({
+        loaded: event.totalBytesSent,
+        total: event.totalBytesExpectedToSend,
+        percent: event.progress,
+      }));
+    }
   });
-}
+};
