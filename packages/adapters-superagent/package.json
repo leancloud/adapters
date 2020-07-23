@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build": "npm run clean && npm run compile",
-    "clean": "rm -rf ./dist",
+    "clean": "rm -rf ./lib",
     "compile": "tsc -p tsconfig.build.json",
     "prepublishOnly": "npm run build"
   },
