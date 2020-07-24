@@ -31,7 +31,7 @@ declare namespace my {
     dataType?: string;
     success?: RequestCallback;
     fail?: RequestCallback;
-    complete: RequestCallback;
+    complete?: RequestCallback;
   }
 
   interface RequestCallback {
