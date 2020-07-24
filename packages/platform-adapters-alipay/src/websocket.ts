@@ -21,16 +21,6 @@ class WS extends EventTarget(EVENTS) {
 
     super();
 
-    const header: { [key: string]: string } = {};
-    if (protocol) {
-      if (protocol instanceof Array) {
-        protocol = protocol.join(",");
-      }
-      const sp = url.includes("?") ? "&" : "?";
-      url += sp + "subprotocol=" + protocol;
-      header["Sec-WebSocket-Protocol"] = protocol;
-    }
-
     this._protocol = protocol;
     this._url = url;
     this._readyState = WS.CONNECTING;
@@ -72,7 +62,14 @@ class WS extends EventTarget(EVENTS) {
     my.onSocketMessage(messageHandler);
     my.onSocketClose(closeHandler);
 
-    my.connectSocket({ url, header });
+    const header: Record<string, string> = {};
+    if (protocol) {
+      let str = Array.isArray(protocol) ? protocol.join(",") : protocol;
+      const sp = this._url.includes("?") ? "&" : "?";
+      this._url += sp + "subprotocol=" + str;
+      header["Sec-WebSocket-Protocol"] = str;
+    }
+    my.connectSocket({ url: this._url, header });
   }
 
   get url() {
