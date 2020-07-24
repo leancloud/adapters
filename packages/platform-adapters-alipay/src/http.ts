@@ -1,6 +1,19 @@
 import { Adapters } from "@leancloud/adapter-types";
 import { AbortError } from "@leancloud/adapter-utils";
 
+function parseResponseData(data: any): object | undefined {
+  switch (typeof data) {
+    case 'undefined':
+      return void 0;
+    case 'object':
+      return data;
+    case 'string':
+      return JSON.parse(data);
+    default:
+      throw new Error("Unsupported response data format");
+  }
+}
+
 export const request: Adapters["request"] = function (url, options = {}) {
   const { method, data, headers, signal } = options;
 
@@ -20,7 +33,7 @@ export const request: Adapters["request"] = function (url, options = {}) {
             ok: !(res.status >= 400),
             status: res.status,
             headers: res.headers,
-            data: res.data,
+            data: parseResponseData(res.data),
           });
         } else {
           reject(new Error(`${res.error}: ${res.errorMessage}`));
@@ -61,7 +74,7 @@ export const upload: Adapters["upload"] = function (url, file, options = {}) {
           ok: !(res.statusCode! >= 400),
           status: res.statusCode,
           headers: res.header,
-          data: res.data,
+          data: parseResponseData(res.data),
         });
       },
       fail: (res) => reject(new Error(`${res.error}: ${res.errorMessage}`)),
