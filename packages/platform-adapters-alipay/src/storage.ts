@@ -3,7 +3,7 @@ import { Adapters } from "@leancloud/adapter-types";
 export const storage: Adapters["storage"] = {
   getItem(key) {
     const { data } = my.getStorageSync({ key });
-    return data;
+    return data as string;
   },
 
   setItem(key, value) {

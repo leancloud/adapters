@@ -1,31 +1,30 @@
-import { Adapters } from "@leancloud/adapter-types";
+import { Adapters, AuthInfo } from "@leancloud/adapter-types";
 
 const PROVIDER = "lc_alipay";
 
-function getLoginCode(scopes: string | Array<string>): Promise<string> {
+function getLoginCode(scopes: my.AuthScope | my.AuthScope[]): Promise<string> {
   return new Promise((resolve, reject) => {
     my.getAuthCode({
       scopes,
-      success: (res: any) => {
+      success: (res) => {
         const failedScopes = Object.keys(res.authErrorScopes);
-        if (failedScopes.length) {
+        if (failedScopes.length == 0) {
+          resolve(res.authCode);
+        } else {
           const first = failedScopes[0];
           reject(new Error(`scope "${first}": ${res.authErrorScopes[first]}`));
-          return;
         }
-        resolve(res.authCode);
       },
       fail: () => reject(new Error("Failed to get login code")),
     });
   });
 }
 
-async function _getAuthInfo({
-  scopes = "auth_base",
-}: {
-  platform?: string,
-  scopes?: string | Array<string>
-} = {}) {
+interface GetAuthInfoOptions {
+  scopes?: my.AuthScope | my.AuthScope[];
+}
+async function _getAuthInfo(options: GetAuthInfoOptions): Promise<AuthInfo> {
+  const { scopes = "auth_base" } = options || {};
   const code = await getLoginCode(scopes);
   return {
     authData: { code },

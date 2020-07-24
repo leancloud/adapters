@@ -35,7 +35,7 @@ export interface Response {
   status?: number;
   ok?: boolean;
   headers?: object;
-  data?: object;
+  data?: any;
 }
 export interface FormDataPart {
   field: string;
