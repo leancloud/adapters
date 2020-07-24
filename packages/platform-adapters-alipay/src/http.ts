@@ -1,4 +1,18 @@
 import { Adapters } from "@leancloud/adapter-types";
+import { AbortError } from "@leancloud/adapter-utils";
+
+function parseResponseData(data: any): object | undefined {
+  switch (typeof data) {
+    case 'undefined':
+      return void 0;
+    case 'object':
+      return data;
+    case 'string':
+      return JSON.parse(data);
+    default:
+      throw new Error("Unsupported response data format");
+  }
+}
 
 export const request: Adapters["request"] = function (url, options = {}) {
   const { method, data, headers, signal } = options;
@@ -13,17 +27,24 @@ export const request: Adapters["request"] = function (url, options = {}) {
       url,
       headers,
       data,
-      complete: (res: any) => {
-        if (!res.status) {
-          reject(new Error(res.errorMessage));
-          return;
+      complete: (res) => {
+        if (res.status) {
+          resolve({
+            ok: !(res.status >= 400),
+            status: res.status,
+            headers: res.headers,
+            data: parseResponseData(res.data),
+          });
+        } else {
+          reject(new Error(`${res.error}: ${res.errorMessage}`));
         }
-        res.ok = !(res.status >= 400);
-        resolve(res);
       },
     });
     if (signal) {
-      signal.addEventListener("abort", task.abort);
+      signal.addEventListener("abort", () => {
+        reject(new AbortError("Request aborted"));
+        task.abort();
+      });
     }
   });
 };
@@ -32,7 +53,7 @@ export const upload: Adapters["upload"] = function (url, file, options = {}) {
   const { headers, data, onprogress, signal } = options;
 
   if (signal?.aborted) {
-    return Promise.reject(new Error("Request aborted"));
+    return Promise.reject(new AbortError("Request aborted"));
   }
   if (!(file && file.data && file.data.uri)) {
     return Promise.reject(
@@ -48,25 +69,30 @@ export const upload: Adapters["upload"] = function (url, file, options = {}) {
       fileName: file.field,
       formData: data,
       fileType: "image",
-      success: (res: any) => {
+      success: (res) => {
         resolve({
-          ok: !(res.statusCode >= 400),
+          ok: !(res.statusCode! >= 400),
           status: res.statusCode,
           headers: res.header,
-          data: res.data,
+          data: parseResponseData(res.data),
         });
       },
-      fail: reject,
+      fail: (res) => reject(new Error(`${res.error}: ${res.errorMessage}`)),
     });
     if (signal) {
-      signal.addEventListener("abort", task.abort);
+      signal.addEventListener("abort", () => {
+        reject(new AbortError("Request aborted"));
+        task.abort();
+      });
     }
     if (onprogress) {
-      task.onProgressUpdate((event: any) => onprogress({
-        loaded: event.totalBytesWritten,
-        total: event.totalBytesExpectedToWrite,
-        percent: event.progress,
-      }));
+      task.onProgressUpdate((event) =>
+        onprogress({
+          loaded: event.totalBytesWritten,
+          total: event.totalBytesExpectedToWrite,
+          percent: event.progress,
+        })
+      );
     }
   });
 };

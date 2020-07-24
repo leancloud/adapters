@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@leancloud/adapter-types": "^4.0.0",
+    "@leancloud/adapter-utils": "^1.0.0",
     "base64-arraybuffer": "^0.2.0",
     "event-target-shim": "^5.0.1"
   }
