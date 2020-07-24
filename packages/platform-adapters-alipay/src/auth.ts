@@ -1,8 +1,10 @@
 import { Adapters, AuthInfo } from "@leancloud/adapter-types";
 
+import AuthScope = AlipayMiniApp.AuthScope;
+
 const PROVIDER = "lc_alipay";
 
-function getLoginCode(scopes: my.AuthScope | my.AuthScope[]): Promise<string> {
+function getLoginCode(scopes: AuthScope | AuthScope[]): Promise<string> {
   return new Promise((resolve, reject) => {
     my.getAuthCode({
       scopes,
@@ -21,7 +23,7 @@ function getLoginCode(scopes: my.AuthScope | my.AuthScope[]): Promise<string> {
 }
 
 interface GetAuthInfoOptions {
-  scopes?: my.AuthScope | my.AuthScope[];
+  scopes?: AuthScope | AuthScope[];
 }
 async function _getAuthInfo(options: GetAuthInfoOptions): Promise<AuthInfo> {
   const { scopes = "auth_base" } = options || {};
