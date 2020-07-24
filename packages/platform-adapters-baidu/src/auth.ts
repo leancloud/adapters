@@ -1,4 +1,4 @@
-import { AuthData } from "@leancloud/adapter-types";
+import { AuthData, AuthInfo, Adapters } from "@leancloud/adapter-types";
 
 const PROVIDER = "lc_baidu";
 const PLATFORM = "baidu";
@@ -6,20 +6,22 @@ const PLATFORM = "baidu";
 function getLoginCode(): Promise<string> {
   return new Promise((resolve, reject) => {
     swan.login({
-      success: (res: any) => resolve(res.code),
-      fail: () => reject(), // no error message provided, for now.
+      success: (res) => resolve(res.code),
+      fail: reject,
     });
   });
 }
 
-export const getAuthInfo = async function ({
-  platform = PLATFORM,
-} = {}) {
+interface GetAuthInfoOption {
+  platform?: string;
+}
+async function _getAuthInfo(option?: GetAuthInfoOption): Promise<AuthInfo> {
+  const { platform = PLATFORM } = option || {};
   const code = await getLoginCode();
-  let authData: AuthData = { code };
   return {
-    authData,
     platform,
+    authData: { code },
     provider: PROVIDER,
   };
 }
+export const getAuthInfo: Adapters["getAuthInfo"] = _getAuthInfo;

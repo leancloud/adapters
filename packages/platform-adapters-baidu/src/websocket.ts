@@ -12,7 +12,7 @@ class WS extends EventTarget(EVENTS) {
   private _url: string;
   private _protocol?: string | string[];
   private _readyState: number;
-  private _socketTask: any;
+  private _socketTask: BaiduMiniApp.SocketTask;
 
   constructor(url: string, protocol?: string | string[]) {
     if (!url) {
@@ -20,18 +20,6 @@ class WS extends EventTarget(EVENTS) {
     }
 
     super();
-
-    if (protocol) {
-      let pstr;
-      if (typeof protocol === "string") {
-        pstr = protocol;
-        protocol = [ protocol ];
-      } else {
-        pstr = protocol.join(",");
-      }
-      const sp = url.includes("?") ? "&" : "?";
-      url += sp + "subprotocol=" + pstr;
-    }
 
     this._protocol = protocol;
     this._url = url;
@@ -58,12 +46,24 @@ class WS extends EventTarget(EVENTS) {
       this.dispatchEvent({ type: "close" });
     };
 
-    const st = swan.connectSocket({ url, protocols: protocol });
-    st.onOpen(openHandler);
-    st.onError(errorHandler);
-    st.onMessage(messageHandler);
-    st.onClose(closeHandler);
-    this._socketTask = st;
+    let protocols: string[] = [];
+    if (protocol) {
+      let str: string; // protocol string
+      if (Array.isArray(protocol)) {
+        str = protocol.join(",");
+        protocols = protocol;
+      } else {
+        str = protocol;
+        protocols = [ protocol ];
+      }
+      const sp = this._url.includes("?") ? "&" : "?";
+      this._url += sp + "subprotocol=" + str;
+    }
+    this._socketTask = swan.connectSocket({ url, protocols });
+    this._socketTask.onOpen(openHandler);
+    this._socketTask.onError(errorHandler);
+    this._socketTask.onMessage(messageHandler);
+    this._socketTask.onClose(closeHandler);
   }
 
   get url() {
