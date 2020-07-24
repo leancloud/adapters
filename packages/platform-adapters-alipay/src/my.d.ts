@@ -9,17 +9,17 @@ declare namespace my {
     setStorageSync(option: { key: string; data: string | object }): void;
     removeStorageSync(option: { key: string }): void;
     clearStorageSync(): void;
-    connectSocket(option: ConnectSocketOption): void;
-    sendSocketMessage(option: SendSocketMessageOption): void;
+    connectSocket(option: SocketConnectOption): void;
+    sendSocketMessage(option: SocketSendMessageOption): void;
     closeSocket(/* omit option */): void;
     onSocketOpen(listener: Function): void;
     onSocketError(listener: Function): void;
     onSocketClose(listener: Function): void;
-    onSocketMessage(listener: OnSocketMessageListener): void;
+    onSocketMessage(listener: SocketOnMessageListener): void;
     offSocketOpen(listener?: Function): void;
     offSocketError(listener?: Function): void;
     offSocketClose(listener?: Function): void;
-    offSocketMessage(listener?: OnSocketMessageListener): void;
+    offSocketMessage(listener?: SocketOnMessageListener): void;
   }
 
   interface RequestOption {
@@ -106,7 +106,7 @@ declare namespace my {
     authSuccessScopes: AuthScope[];
   }
 
-  interface ConnectSocketOption {
+  interface SocketConnectOption {
     url: string;
     data?: object;
     header?: object;
@@ -115,7 +115,7 @@ declare namespace my {
     complete?: Function;
   }
 
-  interface SendSocketMessageOption {
+  interface SocketSendMessageOption {
     data: string;
     isBuffer?: boolean;
     success?: Function;
@@ -123,7 +123,7 @@ declare namespace my {
     complete?: Function;
   }
 
-  interface OnSocketMessageListener {
+  interface SocketOnMessageListener {
     (event: { data: string | ArrayBuffer, isBuffer: boolean }): void;
   }
 }
