@@ -15,11 +15,10 @@ function getLoginCode(): Promise<string> {
 interface GetAuthInfoOption {
   platform?: string;
 }
-async function _getAuthInfo(option?: GetAuthInfoOption): Promise<AuthInfo> {
-  const { platform = PLATFORM } = option || {};
+async function _getAuthInfo(option: GetAuthInfoOption = {}): Promise<AuthInfo> {
   const code = await getLoginCode();
   return {
-    platform,
+    platform: option.platform || PLATFORM,
     authData: { code },
     provider: PROVIDER,
   };
