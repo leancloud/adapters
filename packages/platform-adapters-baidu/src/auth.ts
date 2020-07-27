@@ -7,7 +7,7 @@ function getLoginCode(): Promise<string> {
   return new Promise((resolve, reject) => {
     swan.login({
       success: (res) => resolve(res.code),
-      fail: reject,
+      fail: reject, // no error message provided, for now.
     });
   });
 }

@@ -1,4 +1,4 @@
-import { Adapters, RequestOptions } from "@leancloud/adapter-types";
+import { Adapters } from "@leancloud/adapter-types";
 
 export const request: Adapters["request"] = function (url, options = {}) {
   const { method, data, headers, signal } = options;
