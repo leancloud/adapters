@@ -1,7 +1,7 @@
 import { EventTarget } from "event-target-shim";
 import { WebSocket } from "@leancloud/adapter-types";
 
-const WSEventTarget = EventTarget(["open", "error", "message", "close"]);
+const WSEventTarget = EventTarget("open", "error", "message", "close");
 
 export abstract class WS extends WSEventTarget implements WebSocket {
   static readonly CONNECTING = 0;
