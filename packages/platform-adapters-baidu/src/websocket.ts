@@ -9,27 +9,6 @@ class BaiduWS extends WS {
 
     this._readyState = WS.CONNECTING;
 
-    const openHandler = () => {
-      this._readyState = WS.OPEN;
-      this.dispatchEvent({ type: "open" });
-    };
-    const errorHandler = () => {
-      // baidu mini-app doesnt provide any error message, for now.
-      this.dispatchEvent({ type: "error" });
-      this.close();
-    };
-    const messageHandler = (
-      msg: {
-        data: string | ArrayBuffer
-      }
-    ) => {
-      this.dispatchEvent({ type: "message", data: msg.data });
-    };
-    const closeHandler = () => {
-      this._readyState = WS.CLOSED;
-      this.dispatchEvent({ type: "close" });
-    };
-
     let protocols: string[] = [];
     if (protocol) {
       let str: string; // protocol string
@@ -38,16 +17,33 @@ class BaiduWS extends WS {
         protocols = protocol;
       } else {
         str = protocol;
-        protocols = [ protocol ];
+        protocols = [protocol];
       }
       const sp = this._url.includes("?") ? "&" : "?";
       this._url += sp + "subprotocol=" + str;
     }
-    this._socketTask = swan.connectSocket({ url, protocols });
-    this._socketTask.onOpen(openHandler);
-    this._socketTask.onError(errorHandler);
-    this._socketTask.onMessage(messageHandler);
-    this._socketTask.onClose(closeHandler);
+
+    this._socketTask = swan.connectSocket({ url: this._url, protocols });
+
+    this._socketTask.onOpen(() => {
+      this._readyState = WS.OPEN;
+      this.dispatchEvent({ type: "open" });
+    });
+
+    this._socketTask.onError(() => {
+      // baidu mini-app doesnt provide any error message, for now.
+      this.dispatchEvent({ type: "error" });
+      this.close();
+    });
+
+    this._socketTask.onMessage((msg) => {
+      this.dispatchEvent({ type: "message", data: msg.data });
+    });
+
+    this._socketTask.onClose(() => {
+      this._readyState = WS.CLOSED;
+      this.dispatchEvent({ type: "close" });
+    });
   }
 
   send(data: string | ArrayBuffer) {

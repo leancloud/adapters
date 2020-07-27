@@ -1,4 +1,4 @@
-import { AuthData, AuthInfo, Adapters } from "@leancloud/adapter-types";
+import { AuthInfo, Adapters } from "@leancloud/adapter-types";
 
 const PROVIDER = "lc_baidu";
 const PLATFORM = "baidu";

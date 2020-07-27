@@ -1,10 +1,11 @@
-import { Adapters, RequestOptions } from "@leancloud/adapter-types";
+import { Adapters } from "@leancloud/adapter-types";
+import { AbortError } from "@leancloud/adapter-utils";
 
 export const request: Adapters["request"] = function (url, options = {}) {
   const { method, data, headers, signal } = options;
 
   if (signal?.aborted) {
-    return Promise.reject(new Error("Request aborted"));
+    return Promise.reject(new AbortError("Request aborted"));
   }
 
   return new Promise((resolve, reject) => {
@@ -13,7 +14,7 @@ export const request: Adapters["request"] = function (url, options = {}) {
       method,
       header: headers,
       data,
-      complete: (res: any) => {
+      complete: (res) => {
         if (!res.statusCode) {
           reject(new Error(res.errMsg));
           return;
@@ -22,12 +23,15 @@ export const request: Adapters["request"] = function (url, options = {}) {
           ok: !(res.statusCode >= 400),
           status: res.statusCode,
           headers: res.header,
-          data: res.data,
+          data: res.data as object,
         });
       },
     });
     if (signal) {
-      signal.addEventListener("abort", task.abort);
+      signal.addEventListener("abort", () => {
+        reject(new AbortError("Request aborted"));
+        task.abort();
+      });
     }
   });
 };
@@ -36,7 +40,7 @@ export const upload: Adapters["upload"] = function (url, file, options = {}) {
   const { headers, data, onprogress, signal } = options;
 
   if (signal?.aborted) {
-    return Promise.reject(new Error("Request aborted"));
+    return Promise.reject(new AbortError("Request aborted"));
   }
   if (!(file && file.data && file.data.uri)) {
     return Promise.reject(
@@ -51,22 +55,27 @@ export const upload: Adapters["upload"] = function (url, file, options = {}) {
       filePath: file.data.uri,
       name: file.field,
       formData: data,
-      success: (res: any) => {
-        res.status = res.statusCode;
-        res.ok = !(res.statusCode >= 400);
-        resolve(res);
-      },
-      fail: (res: any) => reject(new Error(res.errMsg)),
+      success: (res) =>
+        resolve({
+          ok: !(res.statusCode >= 400),
+          status: res.statusCode,
+        }),
+      fail: (err) => reject(new Error(err.errMsg)),
     });
     if (signal) {
-      signal.addEventListener("abort", task.abort);
+      signal.addEventListener("abort", () => {
+        reject(new AbortError("Request aborted"));
+        task.abort();
+      });
     }
     if (onprogress) {
-      task.onProgressUpdate((event: any) => onprogress({
-        loaded: event.totalBytesSent,
-        total: event.totalBytesExpectedToSend,
-        percent: event.progress,
-      }));
+      task.onProgressUpdate((event) =>
+        onprogress({
+          loaded: event.totalBytesSent,
+          total: event.totalBytesExpectedToSend,
+          percent: event.progress,
+        })
+      );
     }
   });
 };

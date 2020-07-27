@@ -1,18 +1,22 @@
+import { Adapters, AuthInfo } from "@leancloud/adapter-types";
+
 const PROVIDER = "lc_tt";
 
-export function getAuthInfo({
-  force = false,
-}: {
+interface GetAuthInfoOption {
   force?: boolean;
-} = {}) {
-  return new Promise(function(resolve, reject) {
-    tt.login({
-      force,
-      success: (res: any) => resolve({
-        authData: { code: res.code, anonymousCode: res.anonymousCode },
-        provider: PROVIDER,
-      }),
-      fail: (res: any) => reject(new Error(res.errMsg)),
-    });
-  })
 }
+function _getAuthInfo(option: GetAuthInfoOption = {}): Promise<AuthInfo> {
+  return new Promise(function (resolve, reject) {
+    tt.login({
+      force: option.force || false,
+      success: (res) =>
+        resolve({
+          authData: { code: res.code, anonymousCode: res.anonymousCode },
+          provider: PROVIDER,
+        }),
+      fail: (err) => reject(new Error(err.errMsg)),
+    });
+  });
+}
+
+export const getAuthInfo: Adapters["getAuthInfo"] = _getAuthInfo;
