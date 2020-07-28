@@ -22,7 +22,9 @@
   "scripts": {
     "build": "npm run clean && npm run compile",
     "clean": "rm -rf ./lib",
-    "compile": "rollup -c",
+    "compile": "npm run compile:cjs && npm run compile:esm",
+    "compile:cjs": "tsc -p tsconfig.build.json --outDir lib --module CommonJS",
+    "compile:esm": "tsc -p tsconfig.build.json --outDir lib/esm --module ES6 --moduleResolution Node",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
