@@ -8,7 +8,7 @@ interface GetAuthInfoOption {
 function _getAuthInfo(option: GetAuthInfoOption = {}): Promise<AuthInfo> {
   return new Promise(function (resolve, reject) {
     tt.login({
-      force: option.force || false,
+      force: option.force,
       success: (res) =>
         resolve({
           authData: { code: res.code, anonymousCode: res.anonymousCode },
