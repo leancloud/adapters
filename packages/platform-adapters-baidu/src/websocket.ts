@@ -1,5 +1,5 @@
 import { Adapters } from "@leancloud/adapter-types";
-import { WS } from "@leancloud/adapter-utils";
+import { WS } from "@leancloud/adapter-utils/lib/esm";
 
 class BaiduWS extends WS {
   private _socketTask: BaiduMiniApp.SocketTask;
