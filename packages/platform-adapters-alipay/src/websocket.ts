@@ -1,5 +1,5 @@
 import { Adapters } from "@leancloud/adapter-types";
-import { WS } from "@leancloud/adapter-utils";
+import { WS } from "@leancloud/adapter-utils/lib/esm";
 import { encode, decode } from "base64-arraybuffer";
 
 class AlipayWS extends WS {

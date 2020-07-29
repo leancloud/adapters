@@ -1,5 +1,5 @@
 import { Adapters } from "@leancloud/adapter-types";
-import { AbortError } from "@leancloud/adapter-utils";
+import { AbortError } from "@leancloud/adapter-utils/lib/esm";
 
 export const request: Adapters["request"] = function (url, options = {}) {
   const { method, data, headers, signal } = options;
