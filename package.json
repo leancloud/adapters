@@ -12,6 +12,7 @@
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-typescript": "^5.0.2",
     "lerna": "^3.20.2",
+    "prettier": "2.0.5",
     "rollup": "^2.23.0",
     "tslib": "^2.0.0",
     "typescript": "^3.8.3"
