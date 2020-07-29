@@ -124,6 +124,6 @@ declare namespace AlipayMiniApp {
   }
 
   interface SocketOnMessageListener {
-    (event: { data: string | ArrayBuffer, isBuffer: boolean }): void;
+    (event: { data: string | ArrayBuffer; isBuffer: boolean }): void;
   }
 }

@@ -16,5 +16,5 @@ export const storage: Adapters["storage"] = {
 
   clear() {
     return my.clearStorageSync();
-  }
+  },
 };

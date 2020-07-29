@@ -17,12 +17,10 @@ class AlipayWS extends WS {
       this.dispatchEvent({ type: "error" });
       this.close();
     };
-    const messageHandler = (
-      msg: {
-        data: string | ArrayBuffer,
-        isBuffer: boolean,
-      }
-    ) => {
+    const messageHandler = (msg: {
+      data: string | ArrayBuffer;
+      isBuffer: boolean;
+    }) => {
       let data: string | ArrayBuffer;
       if (msg.data instanceof ArrayBuffer || !msg.isBuffer) {
         data = msg.data;
