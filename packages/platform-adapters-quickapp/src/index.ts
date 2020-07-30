@@ -1,7 +1,4 @@
-import {
-  Adapters,
-  RequestOptions,
-} from "@leancloud/adapter-types";
+import { Adapters, RequestOptions } from "@leancloud/adapter-types";
 import { EventTarget } from "event-target-shim";
 
 import { fetch } from "@system.fetch";
@@ -9,7 +6,7 @@ import { upload } from "@system.request";
 import * as storage from "@system.storage";
 import {
   create as createWebSocket,
-  WebSocket as QAWebSocket
+  WebSocket as QAWebSocket,
 } from "@system.websocketfactory";
 
 export const platformInfo: Adapters["platformInfo"] = {
@@ -29,14 +26,14 @@ export const request: Adapters["request"] = (
     method,
     data,
     header: headers,
-    responseType: "json"
-  }) as unknown) as Promise<Response>).then(response => {
+    responseType: "json",
+  }) as unknown) as Promise<Response>).then((response) => {
     const { code, data, ...rest } = response.data;
     return {
       ...rest,
       data: data as object,
       status: code,
-      ok: !(code >= 400)
+      ok: !(code >= 400),
     };
   });
 
@@ -57,18 +54,18 @@ const uploadFile: Adapters["upload"] = (
     url,
     header: headers,
     data: data
-      ? (Object.keys(data).map(key => ({
+      ? (Object.keys(data).map((key) => ({
           name: key,
-          value: data[key]
+          value: data[key],
         })) as any)
       : undefined,
     files: [
       {
         filename: file.name,
         name: file.field,
-        uri: file.data.uri
-      }
-    ]
+        uri: file.data.uri,
+      },
+    ],
   }) as unknown) as Promise<Response>;
 };
 
@@ -84,41 +81,41 @@ export class WS extends EventTarget(Events) {
     const ws =
       typeof subprotocol === "string"
         ? createWebSocket({
-            url: `${url}?subprotocol=${encodeURIComponent(subprotocol)}`
+            url: `${url}?subprotocol=${encodeURIComponent(subprotocol)}`,
             // >预览不支持设置protocols属性，你设置的protocols属性不会生效，请使用真机调试
             // fallback 到 url query
             // protocols: [subprotocol],
           })
         : createWebSocket({
             url,
-            protocols: subprotocol
+            protocols: subprotocol,
           });
 
     ws.onopen = () => {
       this.dispatchEvent({
-        type: "open"
+        type: "open",
       });
     };
-    ws.onerror = event => {
+    ws.onerror = (event) => {
       this.dispatchEvent({
         type: "error",
-        message: event?.data
+        message: event?.data,
       });
     };
-    ws.onmessage = event => {
+    ws.onmessage = (event) => {
       var { data } = event;
       this.dispatchEvent({
         data,
-        type: "message"
+        type: "message",
       });
     };
-    ws.onclose = event => {
+    ws.onclose = (event) => {
       var { code, reason, wasClean } = event;
       this.dispatchEvent({
         code,
         reason,
         wasClean,
-        type: "close"
+        type: "close",
       });
     };
 
@@ -126,7 +123,7 @@ export class WS extends EventTarget(Events) {
   }
   send(data: string | ArrayBuffer) {
     this.ws.send({
-      data
+      data,
     });
   }
   close() {
@@ -146,7 +143,7 @@ const getFailHandler = (reject: (reason?: any) => void) => (
 
 const localStorage: Adapters["storage"] = {
   async: true,
-  getItem: key =>
+  getItem: (key) =>
     new Promise((resolve, reject) =>
       storage.get({
         key,
@@ -156,7 +153,7 @@ const localStorage: Adapters["storage"] = {
           }
           resolve(value);
         }) as any,
-        fail: getFailHandler(reject)
+        fail: getFailHandler(reject),
       })
     ),
   setItem: (key, value) =>
@@ -165,24 +162,24 @@ const localStorage: Adapters["storage"] = {
         key,
         value,
         success: resolve,
-        fail: getFailHandler(reject)
+        fail: getFailHandler(reject),
       })
     ),
-  removeItem: key =>
+  removeItem: (key) =>
     new Promise((resolve, reject) =>
       // @ts-ignore
       storage.delete({
         key,
         success: resolve,
-        fail: getFailHandler(reject)
+        fail: getFailHandler(reject),
       })
     ),
   clear: () =>
     new Promise((resolve, reject) =>
       storage.clear({
         success: resolve,
-        fail: getFailHandler(reject)
+        fail: getFailHandler(reject),
       })
-    )
+    ),
 };
 export { localStorage as storage };

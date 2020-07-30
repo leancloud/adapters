@@ -1,6 +1,4 @@
-import {
-  getAuthInfo as getWxAuthInfo
-} from "@leancloud/platform-adapters-weapp";
+import { getAuthInfo as getWxAuthInfo } from "@leancloud/platform-adapters-weapp";
 
 const PROVIDER = "lc_qqapp";
 const PLATFORM = "qq";
@@ -17,4 +15,4 @@ export const getAuthInfo = async function ({
   });
   authInfo.provider = PROVIDER;
   return authInfo;
-}
+};

@@ -6,6 +6,7 @@
   "homepage": "https://github.com/leancloud/adapters#readme",
   "license": "MIT",
   "main": "lib/index.js",
+  "types": "types/index.d.ts",
   "directories": {
     "lib": "lib"
   },
@@ -22,7 +23,13 @@
   "scripts": {
     "build": "npm run clean && npm run compile",
     "clean": "rm -rf ./lib",
-    "compile": "tsc -p tsconfig.build.json",
+    "compile": "npm run compile:cjs && npm run compile:esm",
+    "compile:cjs": "tsc -p tsconfig.build.json --outDir lib --module CommonJS",
+    "compile:esm": "tsc -p tsconfig.build.json --outDir lib/esm --module ES6 --moduleResolution Node",
     "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@leancloud/adapter-types": "^4.0.0",
+    "event-target-shim": "^5.0.1"
   }
 }

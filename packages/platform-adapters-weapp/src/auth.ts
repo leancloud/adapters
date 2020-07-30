@@ -6,9 +6,9 @@ const PLATFORM = "weixin";
 function getLoginCode(): Promise<string> {
   return new Promise((resolve, reject) => {
     wx.login({
-      success: res =>
+      success: (res) =>
         res.code ? resolve(res.code) : reject(new Error(res.errMsg)),
-      fail: ({ errMsg }) => reject(new Error(errMsg))
+      fail: ({ errMsg }) => reject(new Error(errMsg)),
     });
   });
 }
@@ -29,4 +29,4 @@ export const getAuthInfo = async function ({
     platform,
     provider: PROVIDER,
   };
-}
+};

@@ -1,3 +1,3 @@
 export class AbortError extends Error {
-  name = 'AbortError';
+  name = "AbortError";
 }

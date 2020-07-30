@@ -1,7 +1,7 @@
-declare const my: my.AlipayStatic;
+declare const my: AlipayMiniApp.My;
 
-declare namespace my {
-  interface AlipayStatic {
+declare namespace AlipayMiniApp {
+  interface My {
     request(option: RequestOption): RequestTask;
     uploadFile(option: UploadOption): UploadTask;
     getAuthCode(option: GetAuthCodeOption): void;
@@ -46,7 +46,7 @@ declare namespace my {
   interface Response extends ResponseError {
     status?: number;
     headers?: object;
-    data?: string;
+    data?: string | object;
   }
 
   interface RequestTask {
@@ -73,7 +73,7 @@ declare namespace my {
   interface UploadResponse extends ResponseError {
     statusCode?: number;
     header?: object;
-    data?: string;
+    data?: string | object;
   }
 
   interface UploadTask {
@@ -124,6 +124,6 @@ declare namespace my {
   }
 
   interface SocketOnMessageListener {
-    (event: { data: string | ArrayBuffer, isBuffer: boolean }): void;
+    (event: { data: string | ArrayBuffer; isBuffer: boolean }): void;
   }
 }

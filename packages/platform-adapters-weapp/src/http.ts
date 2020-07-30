@@ -1,4 +1,4 @@
-import { Adapters, RequestOptions } from "@leancloud/adapter-types";
+import { Adapters } from "@leancloud/adapter-types";
 
 export const request: Adapters["request"] = function (url, options = {}) {
   const { method, data, headers, signal } = options;
@@ -51,7 +51,7 @@ export const upload: Adapters["upload"] = function (url, file, options = {}) {
       filePath: file.data.uri,
       name: file.field,
       formData: data,
-      success: response => {
+      success: (response) => {
         const { statusCode: status, data, ...rest } = response;
         resolve({
           ...rest,
@@ -60,7 +60,7 @@ export const upload: Adapters["upload"] = function (url, file, options = {}) {
           ok: !(status >= 400),
         });
       },
-      fail: response => {
+      fail: (response) => {
         reject(new Error(response.errMsg));
       },
     });
@@ -68,11 +68,13 @@ export const upload: Adapters["upload"] = function (url, file, options = {}) {
       signal.addEventListener("abort", task.abort);
     }
     if (onprogress) {
-      task.onProgressUpdate(event => onprogress({
-        loaded: event.totalBytesSent,
-        total: event.totalBytesExpectedToSend,
-        percent: event.progress,
-      }))
+      task.onProgressUpdate((event) =>
+        onprogress({
+          loaded: event.totalBytesSent,
+          total: event.totalBytesExpectedToSend,
+          percent: event.progress,
+        })
+      );
     }
   });
 };

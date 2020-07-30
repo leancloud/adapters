@@ -15,5 +15,5 @@ export const storage: Adapters["storage"] = {
 
   clear() {
     return wx.clearStorageSync();
-  }
+  },
 };

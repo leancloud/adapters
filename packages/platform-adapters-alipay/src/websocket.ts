@@ -1,38 +1,11 @@
 import { Adapters } from "@leancloud/adapter-types";
-import { EventTarget } from "event-target-shim";
+import { WS } from "@leancloud/adapter-utils/esm";
 import { encode, decode } from "base64-arraybuffer";
 
-const EVENTS = ["open", "error", "message", "close"];
-
-class WS extends EventTarget(EVENTS) {
-  static CONNECTING = 0;
-  static OPEN = 1;
-  static CLOSING = 2;
-  static CLOSED = 3;
-
-  private _url: string;
-  private _protocol?: string | string[];
-  private _readyState: number;
-
+class AlipayWS extends WS {
   constructor(url: string, protocol?: string | string[]) {
-    if (!url) {
-      throw new TypeError("Failed to construct 'WebSocket': url required");
-    }
+    super(url, protocol);
 
-    super();
-
-    const header: { [key: string]: string } = {};
-    if (protocol) {
-      if (protocol instanceof Array) {
-        protocol = protocol.join(",");
-      }
-      const sp = url.includes("?") ? "&" : "?";
-      url += sp + "subprotocol=" + protocol;
-      header["Sec-WebSocket-Protocol"] = protocol;
-    }
-
-    this._protocol = protocol;
-    this._url = url;
     this._readyState = WS.CONNECTING;
 
     const openHandler = () => {
@@ -44,12 +17,10 @@ class WS extends EventTarget(EVENTS) {
       this.dispatchEvent({ type: "error" });
       this.close();
     };
-    const messageHandler = (
-      msg: {
-        data: string | ArrayBuffer,
-        isBuffer: boolean,
-      }
-    ) => {
+    const messageHandler = (msg: {
+      data: string | ArrayBuffer;
+      isBuffer: boolean;
+    }) => {
       let data: string | ArrayBuffer;
       if (msg.data instanceof ArrayBuffer || !msg.isBuffer) {
         data = msg.data;
@@ -72,17 +43,14 @@ class WS extends EventTarget(EVENTS) {
     my.onSocketMessage(messageHandler);
     my.onSocketClose(closeHandler);
 
-    my.connectSocket({ url, header });
-  }
-
-  get url() {
-    return this._url;
-  }
-  get protocol() {
-    return this._protocol;
-  }
-  get readyState() {
-    return this._readyState;
+    const header: Record<string, string> = {};
+    if (protocol) {
+      let str = Array.isArray(protocol) ? protocol.join(",") : protocol;
+      const sp = this._url.includes("?") ? "&" : "?";
+      this._url += sp + "subprotocol=" + str;
+      header["Sec-WebSocket-Protocol"] = str;
+    }
+    my.connectSocket({ url: this._url, header });
   }
 
   send(data: string | ArrayBuffer) {
@@ -105,4 +73,4 @@ class WS extends EventTarget(EVENTS) {
   }
 }
 
-export const WebSocket: Adapters["WebSocket"] = WS;
+export const WebSocket: Adapters["WebSocket"] = AlipayWS;
