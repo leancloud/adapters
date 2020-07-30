@@ -1,5 +1,5 @@
 import { Adapters } from "@leancloud/adapter-types";
-import { WS } from "@leancloud/adapter-utils/lib/esm";
+import { WS } from "@leancloud/adapter-utils/esm";
 
 class ToutiaoWS extends WS {
   private _socketTask: ToutiaoMiniApp.SocketTask;
