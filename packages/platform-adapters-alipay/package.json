@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/platform-adapters-alipay",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Platform adapters for Alipay Miniapp",
   "keywords": [
     "platform-adapters"
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@leancloud/adapter-types": "^4.0.0",
-    "@leancloud/adapter-utils": "^1.0.0",
+    "@leancloud/adapter-utils": "^1.1.0",
     "base64-arraybuffer": "^0.2.0"
   }
 }
