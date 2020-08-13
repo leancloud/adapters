@@ -40,7 +40,7 @@ export const upload: Adapters["upload"] = function (url, file, options = {}) {
   const { headers, data, onprogress, signal } = options;
 
   if (signal?.aborted) {
-    return Promise.reject(new Error("Request aborted"));
+    return Promise.reject(new AbortError("Request aborted"));
   }
   if (!(file && file.data && file.data.uri)) {
     return Promise.reject(
