@@ -1,10 +1,11 @@
 import { Adapters } from "@leancloud/adapter-types";
+import { AbortError } from "@leancloud/adapter-utils/esm";
 
 export const request: Adapters["request"] = function (url, options = {}) {
   const { method, data, headers, signal } = options;
 
   if (signal?.aborted) {
-    return Promise.reject(new Error("Request aborted"));
+    return Promise.reject(new AbortError("Request aborted"));
   }
 
   return new Promise((resolve, reject) => {
@@ -27,7 +28,10 @@ export const request: Adapters["request"] = function (url, options = {}) {
       },
     });
     if (signal) {
-      signal.addEventListener("abort", task.abort);
+      signal.addEventListener("abort", () => {
+        reject(new AbortError("Request aborted"));
+        task.abort();
+      });
     }
   });
 };
@@ -36,7 +40,7 @@ export const upload: Adapters["upload"] = function (url, file, options = {}) {
   const { headers, data, onprogress, signal } = options;
 
   if (signal?.aborted) {
-    return Promise.reject(new Error("Request aborted"));
+    return Promise.reject(new AbortError("Request aborted"));
   }
   if (!(file && file.data && file.data.uri)) {
     return Promise.reject(
@@ -65,7 +69,10 @@ export const upload: Adapters["upload"] = function (url, file, options = {}) {
       },
     });
     if (signal) {
-      signal.addEventListener("abort", task.abort);
+      signal.addEventListener("abort", () => {
+        reject(new AbortError("Request aborted"));
+        task.abort();
+      });
     }
     if (onprogress) {
       task.onProgressUpdate((event) =>

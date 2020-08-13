@@ -5,7 +5,7 @@ export const request: Adapters["request"] = function (url, options = {}) {
   const { method, data, headers, signal } = options;
 
   if (signal?.aborted) {
-    return Promise.reject(new Error("Request aborted"));
+    return Promise.reject(new AbortError("Request aborted"));
   }
 
   return new Promise((resolve, reject) => {
