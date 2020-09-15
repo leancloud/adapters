@@ -32,6 +32,7 @@
   "dependencies": {
     "@leancloud/adapter-types": "^4.0.0",
     "@leancloud/adapter-utils": "^1.1.0",
+    "event-target-shim": "^5.0.1",
     "miniprogram-api-typings": "^2.10.2"
   }
 }
