@@ -8,7 +8,8 @@
   "author": "Lee Yeh <lee55962698@gmail.com>",
   "homepage": "https://github.com/leancloud/adapters#readme",
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
   "directories": {
     "lib": "lib"
@@ -26,12 +27,13 @@
   "scripts": {
     "build": "npm run clean && npm run compile",
     "clean": "rm -rf ./lib",
-    "compile": "tsc -p tsconfig.build.json",
+    "compile": "rollup -c",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@leancloud/adapter-types": "^4.0.0",
     "@leancloud/adapter-utils": "^1.1.0",
-    "base64-arraybuffer": "^0.2.0"
+    "base64-arraybuffer": "^0.2.0",
+    "event-target-shim": "^5.0.1"
   }
 }

@@ -1,5 +1,5 @@
-import typescript from "@rollup/plugin-typescript";
 import resolve from "@rollup/plugin-node-resolve";
+import typescript from "@rollup/plugin-typescript";
 
 export default {
   input: "src/index.ts",
@@ -9,9 +9,9 @@ export default {
     sourcemap: true,
   },
   plugins: [
+    resolve(),
     typescript({
       tsconfig: "tsconfig.build.json",
     }),
-    resolve(),
   ],
 }

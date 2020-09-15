@@ -1,8 +1,10 @@
 {
   "extends": "../../tsconfig.build.json",
   "compilerOptions": {
-    "target": "es5",
-    "outDir": "./lib"
+    "rootDir": "src",
+    "outDir": "lib",
+    "target": "ES5",
+    "lib": ["ES5"]
   },
   "include": [
     "src/**/*"
