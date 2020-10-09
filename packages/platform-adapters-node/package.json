@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/platform-adapters-node",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Platform adapters for Node.js",
   "keywords": [
     "platform-adapters"
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@leancloud/adapter-types": "^4.0.0",
-    "@leancloud/adapters-superagent": "^1.2.0",
+    "@leancloud/adapters-superagent": "^1.3.0",
     "@types/ws": "^7.2.2",
     "localstorage-memory": "^1.0.2",
     "ws": "^5.2.2"
