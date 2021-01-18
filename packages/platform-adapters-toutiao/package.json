@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/platform-adapters-toutiao",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Platform adapters for toutiao mini-app",
   "keywords": [
     "platform-adapters"

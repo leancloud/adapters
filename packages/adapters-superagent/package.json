@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/adapters-superagent",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Adaptors for superagent",
   "author": "Lee Yeh <lee55962698@gmail.com>",
   "homepage": "https://github.com/leancloud/adapters#readme",

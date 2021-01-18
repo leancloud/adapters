@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/adapter-utils",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A set of utility functions commonly used by adapters",
   "author": "Lee Yeh <lee55962698@gmail.com>",
   "homepage": "https://github.com/leancloud/adapters#readme",
