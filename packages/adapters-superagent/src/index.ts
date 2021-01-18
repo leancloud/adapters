@@ -26,24 +26,22 @@ export const request: Adapters["request"] = function (url, options = {}) {
     req.on("progress", onprogress);
   }
 
-  return new Promise(async (resolve, reject) => {
-    if (signal) {
-      signal.addEventListener("abort", () => {
-        reject(new AbortError("Request aborted"));
-        req.abort();
-      });
-    }
-    try {
-      const res = await req.send(data);
-      resolve(convertResponse(res));
-    } catch (err) {
-      const resErr = err as superagent.ResponseError;
-      if (resErr.response) {
-        resolve(convertResponse(resErr.response));
-      } else {
-        reject(err);
-      }
-    }
+  return new Promise((resolve, reject) => {
+    const abortListener = () => {
+      reject(new AbortError("Request aborted"));
+      req.abort();
+    };
+    signal?.addEventListener("abort", abortListener);
+    req
+      .then((res) => resolve(convertResponse(res)))
+      .catch((err: superagent.ResponseError) => {
+        if (err.response) {
+          resolve(convertResponse(err.response));
+        } else {
+          reject(err);
+        }
+      })
+      .finally(() => signal?.removeEventListener("abort", abortListener));
   });
 };
 
@@ -65,23 +63,21 @@ export const upload: Adapters["upload"] = (url, file, options = {}) => {
     req.on("progress", onprogress);
   }
 
-  return new Promise(async (resolve, reject) => {
-    if (signal) {
-      signal.addEventListener("abort", () => {
-        reject(new AbortError("Request aborted"));
-        req.abort();
-      });
-    }
-    try {
-      const res = await req;
-      resolve(convertResponse(res));
-    } catch (err) {
-      const resErr = err as superagent.ResponseError;
-      if (resErr.response) {
-        resolve(convertResponse(resErr.response));
-      } else {
-        reject(err);
-      }
-    }
+  return new Promise((resolve, reject) => {
+    const abortListener = () => {
+      reject(new AbortError("Request aborted"));
+      req.abort();
+    };
+    signal?.addEventListener("abort", abortListener);
+    req
+      .then((res) => resolve(convertResponse(res)))
+      .catch((err: superagent.ResponseError) => {
+        if (err.response) {
+          resolve(convertResponse(err.response));
+        } else {
+          reject(err);
+        }
+      })
+      .finally(() => signal?.removeEventListener("abort", abortListener));
   });
 };
