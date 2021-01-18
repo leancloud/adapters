@@ -33,6 +33,7 @@ export const request: Adapters["request"] = function (url, options = {}) {
     };
     signal?.addEventListener("abort", abortListener);
     req
+      .send(data)
       .then((res) => resolve(convertResponse(res)))
       .catch((err: superagent.ResponseError) => {
         if (err.response) {
