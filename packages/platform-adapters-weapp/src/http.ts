@@ -28,10 +28,12 @@ export const request: Adapters["request"] = function (url, options = {}) {
       },
     });
     if (signal) {
-      signal.addEventListener("abort", () => {
+      const abortListener = () => {
+        signal.removeEventListener("abort", abortListener);
         reject(new AbortError("Request aborted"));
         task.abort();
-      });
+      };
+      signal.addEventListener("abort", abortListener);
     }
   });
 };
