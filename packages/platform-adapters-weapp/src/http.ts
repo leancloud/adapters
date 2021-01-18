@@ -15,6 +15,7 @@ export const request: Adapters["request"] = function (url, options = {}) {
       data,
       header: headers,
       complete: (res: any) => {
+        signal?.removeEventListener("abort", abortListener);
         if (!res.statusCode) {
           reject(new Error(res.errMsg));
           return;
@@ -27,14 +28,11 @@ export const request: Adapters["request"] = function (url, options = {}) {
         });
       },
     });
-    if (signal) {
-      const abortListener = () => {
-        signal.removeEventListener("abort", abortListener);
-        reject(new AbortError("Request aborted"));
-        task.abort();
-      };
-      signal.addEventListener("abort", abortListener);
-    }
+    const abortListener = () => {
+      reject(new AbortError("Request aborted"));
+      task.abort();
+    };
+    signal?.addEventListener("abort", abortListener);
   });
 };
 
@@ -69,13 +67,15 @@ export const upload: Adapters["upload"] = function (url, file, options = {}) {
       fail: (response) => {
         reject(new Error(response.errMsg));
       },
+      complete: () => {
+        signal?.removeEventListener("abort", abortListener);
+      },
     });
-    if (signal) {
-      signal.addEventListener("abort", () => {
-        reject(new AbortError("Request aborted"));
-        task.abort();
-      });
-    }
+    const abortListener = () => {
+      reject(new AbortError("Request aborted"));
+      task.abort();
+    };
+    signal?.addEventListener("abort", abortListener);
     if (onprogress) {
       task.onProgressUpdate((event) =>
         onprogress({
