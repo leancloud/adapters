@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/platform-adapters-react-native",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Platform adapters for React Native",
   "keywords": [
     "platform-adapters"
@@ -30,8 +30,8 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@leancloud/adapter-types": "^4.0.0",
-    "@leancloud/platform-adapters-browser": "^1.4.0",
+    "@leancloud/adapter-types": "^5.0.0",
+    "@leancloud/platform-adapters-browser": "^1.5.0",
     "@react-native-community/async-storage": "^1.11.0"
   }
 }
