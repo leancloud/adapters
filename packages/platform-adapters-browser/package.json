@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/platform-adapters-browser",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Platform adapters for browser",
   "keywords": [
     "platform-adapters"
@@ -33,6 +33,6 @@
   },
   "dependencies": {
     "@leancloud/adapter-types": "^5.0.0",
-    "@leancloud/adapters-superagent": "^1.4.1"
+    "@leancloud/adapters-superagent": "^1.4.2"
   }
 }
