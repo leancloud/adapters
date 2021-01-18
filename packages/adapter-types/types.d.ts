@@ -21,8 +21,8 @@ export interface ProgressEvent {
 }
 export interface AbortSignal {
   readonly aborted: boolean;
-  onabort: () => any;
   addEventListener: (type: string, listener: () => any) => any;
+  removeEventListener: (type: string, listener: () => any) => any;
 }
 export interface RequestOptions {
   method?: HTTPMethod;
