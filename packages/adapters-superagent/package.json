@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@leancloud/adapter-types": "^5.0.0",
-    "@leancloud/adapter-utils": "^1.2.1",
+    "@leancloud/adapter-utils": "^1.2.2",
     "@types/superagent": "^4.1.7",
     "superagent": "^5.2.2"
   },

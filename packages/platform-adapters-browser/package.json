@@ -33,6 +33,6 @@
   },
   "dependencies": {
     "@leancloud/adapter-types": "^5.0.0",
-    "@leancloud/adapters-superagent": "^1.4.0"
+    "@leancloud/adapters-superagent": "^1.4.1"
   }
 }

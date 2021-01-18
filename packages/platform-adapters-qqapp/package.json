@@ -31,6 +31,6 @@
   },
   "dependencies": {
     "@leancloud/adapter-types": "^5.0.0",
-    "@leancloud/platform-adapters-weapp": "^1.6.0"
+    "@leancloud/platform-adapters-weapp": "^1.6.1"
   }
 }

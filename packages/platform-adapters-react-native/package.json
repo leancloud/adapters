@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@leancloud/adapter-types": "^5.0.0",
-    "@leancloud/platform-adapters-browser": "^1.5.0",
+    "@leancloud/platform-adapters-browser": "^1.5.1",
     "@react-native-community/async-storage": "^1.11.0"
   }
 }
