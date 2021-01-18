@@ -26,9 +26,5 @@
     "clean": "rm -rf ./lib",
     "compile": "rollup -c",
     "prepublishOnly": "npm run build"
-  },
-  "dependencies": {
-    "@leancloud/adapter-types": "^4.0.0",
-    "event-target-shim": "^5.0.1"
   }
 }
