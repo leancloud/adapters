@@ -13,7 +13,7 @@ export const request: Adapters["request"] = function (url, options = {}) {
       url,
       method,
       header: headers,
-      data,
+      data: JSON.stringify(data),
       complete: (res) => {
         signal?.removeEventListener("abort", abortListener);
         if (!res.statusCode) {
