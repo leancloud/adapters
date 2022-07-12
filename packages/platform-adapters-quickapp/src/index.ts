@@ -157,7 +157,7 @@ const localStorage: Adapters["storage"] = {
       })
     ),
   setItem: (key, value) =>
-    new Promise((resolve, reject) =>
+    new Promise<void>((resolve, reject) =>
       storage.set({
         key,
         value,
@@ -166,8 +166,7 @@ const localStorage: Adapters["storage"] = {
       })
     ),
   removeItem: (key) =>
-    new Promise((resolve, reject) =>
-      // @ts-ignore
+    new Promise<void>((resolve, reject) =>
       storage.delete({
         key,
         success: resolve,
@@ -175,7 +174,7 @@ const localStorage: Adapters["storage"] = {
       })
     ),
   clear: () =>
-    new Promise((resolve, reject) =>
+    new Promise<void>((resolve, reject) =>
       storage.clear({
         success: resolve,
         fail: getFailHandler(reject),
