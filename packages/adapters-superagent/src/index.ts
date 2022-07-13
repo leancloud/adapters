@@ -11,14 +11,14 @@ function convertResponse(res: superagent.Response): Response {
   };
 }
 
-export const request: Adapters["request"] = function (url, options = {}) {
+export const request: Adapters["request"] = async (url, options = {}) => {
   const { method = "GET", data, headers, onprogress, signal } = options;
 
   if (signal?.aborted) {
-    return Promise.reject(new AbortError("Request aborted"));
+    throw new AbortError("Request aborted");
   }
 
-  const req = superagent(method, url);
+  const req = superagent(method, url).ok(() => true);
   if (headers) {
     req.set(headers);
   }
@@ -26,34 +26,37 @@ export const request: Adapters["request"] = function (url, options = {}) {
     req.on("progress", onprogress);
   }
 
-  return new Promise((resolve, reject) => {
-    const abortListener = () => {
-      reject(new AbortError("Request aborted"));
-      req.abort();
-    };
-    signal?.addEventListener("abort", abortListener);
-    req
-      .send(data)
-      .then((res) => resolve(convertResponse(res)))
-      .catch((err: superagent.ResponseError) => {
-        if (err.response) {
-          resolve(convertResponse(err.response));
-        } else {
-          reject(err);
-        }
-      })
-      .finally(() => signal?.removeEventListener("abort", abortListener));
-  });
+  let aborted = false;
+  const onAbort = () => {
+    aborted = true;
+    req.abort();
+  };
+
+  signal?.addEventListener("abort", onAbort);
+
+  try {
+    const res = await req.send(data);
+    return convertResponse(res);
+  } catch (error: any) {
+    if (aborted) {
+      throw new AbortError("Request aborted");
+    }
+    throw error;
+  } finally {
+    signal?.removeEventListener("abort", onAbort);
+  }
 };
 
-export const upload: Adapters["upload"] = (url, file, options = {}) => {
+export const upload: Adapters["upload"] = async (url, file, options = {}) => {
   const { method = "POST", data, headers, onprogress, signal } = options;
 
   if (signal?.aborted) {
-    return Promise.reject(new AbortError("Request aborted"));
+    throw new AbortError("Request aborted");
   }
 
-  const req = superagent(method, url).attach(file.field, file.data, file.name);
+  const req = superagent(method, url)
+    .ok(() => true)
+    .attach(file.field, file.data, file.name);
   if (data) {
     req.field(data);
   }
@@ -64,21 +67,23 @@ export const upload: Adapters["upload"] = (url, file, options = {}) => {
     req.on("progress", onprogress);
   }
 
-  return new Promise((resolve, reject) => {
-    const abortListener = () => {
-      reject(new AbortError("Request aborted"));
-      req.abort();
-    };
-    signal?.addEventListener("abort", abortListener);
-    req
-      .then((res) => resolve(convertResponse(res)))
-      .catch((err: superagent.ResponseError) => {
-        if (err.response) {
-          resolve(convertResponse(err.response));
-        } else {
-          reject(err);
-        }
-      })
-      .finally(() => signal?.removeEventListener("abort", abortListener));
-  });
+  let aborted = false;
+  const onAbort = () => {
+    aborted = true;
+    req.abort();
+  };
+
+  signal?.addEventListener("abort", onAbort);
+
+  try {
+    const res = await req;
+    return convertResponse(res);
+  } catch (error: any) {
+    if (aborted) {
+      throw new AbortError("Request aborted");
+    }
+    throw error;
+  } finally {
+    signal?.removeEventListener("abort", onAbort);
+  }
 };
