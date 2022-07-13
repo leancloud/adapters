@@ -1,7 +1,7 @@
 import { Adapters } from "@leancloud/adapter-types";
 export * from "@leancloud/platform-adapters-browser";
 
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const storage = { ...AsyncStorage, async: true };
 
