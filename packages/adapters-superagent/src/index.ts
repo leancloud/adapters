@@ -37,7 +37,7 @@ export const request: Adapters["request"] = async (url, options = {}) => {
   try {
     const res = await req.send(data);
     return convertResponse(res);
-  } catch (error: any) {
+  } catch (error) {
     if (aborted) {
       throw new AbortError("Request aborted");
     }
@@ -78,7 +78,7 @@ export const upload: Adapters["upload"] = async (url, file, options = {}) => {
   try {
     const res = await req;
     return convertResponse(res);
-  } catch (error: any) {
+  } catch (error) {
     if (aborted) {
       throw new AbortError("Request aborted");
     }
