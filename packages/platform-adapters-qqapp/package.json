@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/platform-adapters-qqapp",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Platform adapters for QQ Miniapp",
   "keywords": [
     "platform-adapters"
@@ -31,6 +31,6 @@
   },
   "dependencies": {
     "@leancloud/adapter-types": "^5.0.0",
-    "@leancloud/platform-adapters-weapp": "^1.6.1"
+    "@leancloud/platform-adapters-weapp": "^1.6.2"
   }
 }
