@@ -31,12 +31,16 @@
   },
   "dependencies": {
     "@leancloud/adapter-types": "^5.0.0",
-    "@leancloud/adapters-superagent": "^1.4.3",
+    "@leancloud/adapter-utils": "^1.2.2",
     "@types/ws": "^7.2.2",
     "localstorage-memory": "^1.0.2",
+    "superagent": "^8.0.9",
     "ws": "^5.2.2"
   },
   "bugs": {
     "url": "https://github.com/leancloud/adapters/issues"
+  },
+  "devDependencies": {
+    "@types/superagent": "^4.1.16"
   }
 }
