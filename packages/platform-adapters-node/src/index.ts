@@ -8,4 +8,4 @@ export const platformInfo: Adapters["platformInfo"] = {
 };
 export const WebSocket: Adapters["WebSocket"] = WS;
 export const storage: Adapters["storage"] = localStorageMemory;
-export { request, upload } from "@leancloud/adapters-superagent";
+export { request, upload } from "./adapters-superagent";
