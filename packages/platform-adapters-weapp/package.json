@@ -1,6 +1,6 @@
 {
   "name": "@leancloud/platform-adapters-weapp",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Platform adapters for Wechat Miniapp",
   "keywords": [
     "platform-adapters"
